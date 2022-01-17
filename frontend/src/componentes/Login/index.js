@@ -1,6 +1,6 @@
 import React, { useState  } from 'react';
 import { connect } from "react-redux";
-//import Dashboard from "../dashboard/index.js";
+import Dashboard from "../dashboard/index.js";
 
 //import AgregarDotacion from '../AgregarDotacion/index';
 import Login from './login';
@@ -20,11 +20,11 @@ class Inicio extends React.Component  {
   }
   render(){
     if (this.state.estadoLogin == true) {
-      /*return (
+      return (
         <>
           <Dashboard cambiar={this.cambiar}/>
         </>
-      );*/
+      );
     } else {
       return (
         <>
