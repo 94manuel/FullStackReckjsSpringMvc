@@ -21,6 +21,7 @@ function Login(props) {
   var [isLoading, setIsLoading] = useState(false);
   var [error, setError] = useState(null);
   var [activeTabId, setActiveTabId] = useState(0);
+  var [intentos, setIntentos] = useState(3);
   var [nameValue, setNameValue] = useState("");
   var [loginValue, setLoginValue] = useState("");
   var [passwordValue, setPasswordValue] = useState("");
@@ -28,28 +29,33 @@ function Login(props) {
   function Entrar(data){
     props.addLogin(data);
     console.log(data[0]);
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data[0])
-  };
-    fetch("http://127.0.0.1:8000/login",requestOptions)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          console.log(result);
-          console.log(result);
-          localStorage.setItem("id_token", "1");
-          props.addSuccess();
-          props.cambiar(true);
-        },  
-        (error) => {
-          console.log(error);
-          props.addOut()  
-          setError(true);
-          setIsLoading(false);
-        }
-      )
+    if (data[0].email == "ejemplo@ejemplo.com" && data[0].pass == "12345678") {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data[0])
+    };
+      fetch("http://127.0.0.1:8000/login",requestOptions)
+        .then(res => res.json())
+        .then(
+          (result) => {
+            console.log(result);
+            localStorage.setItem("id_token", "1");
+            props.addSuccess();
+            props.cambiar(true);
+          },  
+          (error) => {
+            console.log(error);
+            props.addOut()  
+          }
+        )
+    } else {
+      setError(true);
+      setIsLoading(false);
+      setIntentos(intentos--);
+      
+    }
+    
   };
     return (
       <Grid container >
@@ -80,7 +86,7 @@ function Login(props) {
               </div>
               <Fade in={error}>
                 <Typography color="secondary" className={classes.errorMessage}>
-                  Algo está mal con su nombre de usuario o contraseña :(
+                  Algo está mal con su nombre de usuario o contraseña,  {intentos <=0 ? "Bloqueado los intentos":" Tienes "+ intentos  +"intentos más"} 
                 </Typography>
               </Fade>
               <TextField
