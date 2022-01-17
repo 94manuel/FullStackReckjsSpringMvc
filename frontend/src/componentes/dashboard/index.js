@@ -40,28 +40,7 @@ class AgregarTrabajador extends Component {
       email:"manu_fer_santo@live.com.mx",
       fecha: now.toLocaleDateString() + " " + now.toLocaleTimeString(),
     })
-    const requestOptions = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-  };
-    fetch("http://127.0.0.1:8000/formulario",requestOptions)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            formulario:result
-          });
-          console.log(result);
-          
-        },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )
+    this.Consultar();
   }
   handleSubmit = (event) => {
     const { addFormulario } =this.props;
@@ -137,6 +116,30 @@ class AgregarTrabajador extends Component {
   Regresar = (event) => {
     const { cambiar } = this.props;
     cambiar(0);
+  }
+  Consultar = (event) => {
+    const requestOptions = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+  };
+    fetch("http://127.0.0.1:8000/formulario",requestOptions)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            formulario:result
+          });
+          console.log(result);
+          
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
   }
   
   render(){
@@ -217,7 +220,7 @@ class AgregarTrabajador extends Component {
               <Button variant="primary" onClick={this.handleSubmit}>
                 Enviar
               </Button>
-              <Button variant="primary" onClick={this.handleSubmit}>
+              <Button variant="primary" onClick={this.Consultar}>
                 Consultar
               </Button>
             </Form>
