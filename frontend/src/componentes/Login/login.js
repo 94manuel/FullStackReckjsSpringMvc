@@ -13,6 +13,7 @@ import {
 import { connect } from "react-redux";
 import useStyles from "./styles";
 import logo from "./logo.svg";
+import Logorive from './logorive';
 
 function Login(props) {
   var classes = useStyles();
@@ -40,7 +41,7 @@ function Login(props) {
           console.log(result);
           localStorage.setItem("id_token", "1");
           props.addSuccess();
-          props.cambiar();
+          props.cambiar(true);
         },  
         (error) => {
           console.log(error);
@@ -53,8 +54,7 @@ function Login(props) {
     return (
       <Grid container >
         <div className={classes.logotypeContainer}>
-          <img src={logo} alt="logo" className={classes.logotypeImage} />
-          <Typography className={classes.logotypeText}>Material Admin</Typography>
+          <Logorive />
         </div>
         <div className={classes.formContainer}>
         <div className={classes.form}>
@@ -65,12 +65,12 @@ function Login(props) {
             textColor="primary"
             centered
           >
-            <Tab label="Login" classes={{ root: classes.tab }} />
-            <Tab label="New User" classes={{ root: classes.tab }} />
+            <Tab label="Entrar" classes={{ root: classes.tab }} />
+            <Tab label="Registro" classes={{ root: classes.tab }} />
           </Tabs>
           {activeTabId === 0 && (
             <React.Fragment>
-              <Typography variant="h1" className={classes.greeting}>
+              <Typography variant="h3" className={classes.greeting}>
                 Buenos dias usuario
               </Typography>
               <div className={classes.formDividerContainer}>
@@ -147,10 +147,10 @@ function Login(props) {
           )}
           {activeTabId === 1 && (
             <React.Fragment>
-              <Typography variant="h1" className={classes.greeting}>
+              <Typography variant="h3" className={classes.greeting}>
                 Bienvenido!
               </Typography>
-              <Typography variant="h2" className={classes.subGreeting}>
+              <Typography variant="h4" className={classes.subGreeting}>
                 Crea tu cuenta
               </Typography>
               <Fade in={error}>

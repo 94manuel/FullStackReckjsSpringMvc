@@ -14,9 +14,15 @@ class Inicio extends React.Component  {
     console.log(props);
   }
   cambiar = (valor) => {
-    this.setState((state) => {
-      return {estadoLogin: true }
-    });
+    if(valor){
+      this.setState((state) => {
+        return {estadoLogin: true }
+      });
+    }else{
+      this.setState((state) => {
+        return {estadoLogin: false }
+      });
+    }
   }
   render(){
     if (this.state.estadoLogin == true) {
@@ -34,11 +40,6 @@ class Inicio extends React.Component  {
     }
   }
 }
-/*
-const mapStateToProps = state => ({
-  Usuario: state.Login.usuario,
-  isAuthenticated: state.isAuthenticated,
-})*/
 function mapStateToProps(state) {
   const { Usuario } = state.Login
   return { todoList: Usuario }

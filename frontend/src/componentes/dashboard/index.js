@@ -1,14 +1,17 @@
-import React, { Component  } from 'react';
+import React, { Component,useRef  } from 'react';
 import { Container,Button,Form,Table,Col,Row,FloatingLabel  } from 'react-bootstrap';
 import { connect } from "react-redux";
 
 class AgregarTrabajador extends Component {
+  constructor(props){
+    super(props);
+  }
   state = {
     id:0,
     documento: 0,
     email: "",
-    PC: "",
-    comentarios: "",
+    PcFavorita: "",
+    Comentarios: "",
     fecha: "",
     formulario: [],
     meses : [
@@ -27,7 +30,7 @@ class AgregarTrabajador extends Component {
       ]
   }
   
-  componentWillMount(){
+  componentWillMount(){    
     const { Usuario } =this.props;
     console.log(Usuario);
     let now = new Date();
@@ -69,8 +72,8 @@ class AgregarTrabajador extends Component {
         user_id:this.state.id,
         documento: this.state.documento,
         email: this.state.email,
-        Comentarios : this.state.Comentarios,
-        PcFavorita: this.state.PcFavorita,
+        comentarios : this.state.Comentarios,
+        pc_favorita: this.state.PcFavorita,
         fecha: this.state.fecha
       })
   };
@@ -89,7 +92,7 @@ class AgregarTrabajador extends Component {
             documento: this.state.documento,
             email: this.state.email,
             Comentarios : this.state.Comentarios,
-            PcFavorita: this.state.PcFavorita,
+            pcFavorita: this.state.PcFavorita,
             fecha: this.state.fecha
           });
         },
@@ -106,7 +109,7 @@ class AgregarTrabajador extends Component {
   };
   handleChange = (event) => {
     this.setState({[event.target.name]: event.target.value})
-    console.log(event.target.value);
+    console.log(this.state.formulario);
   };
   Eliminar = (event) => {
     const requestOptions = {
@@ -120,6 +123,7 @@ class AgregarTrabajador extends Component {
             isLoaded: true,
           });
           console.log(result);
+          alert("Eliminado");
           
         },
         (error) => {
@@ -165,28 +169,29 @@ class AgregarTrabajador extends Component {
                 <Col>
                   <Form.Group as={Col} controlId="formSistema">
                     <Form.Label>Marca favorita de PC</Form.Label>
-                    <Form.Select
+                    <Form.Control
+                    as="select"
                     name="PcFavorita"
                     defaultValue="Escoger..."
                     onChange={this.handleChange}>
-                      <option>Escoger</option>
-                      <option>Windows</option>
-                      <option>Linux</option>
-                    </Form.Select>
+                      <option value="Escoger">Escoger</option>
+                      <option value="Windows">Windows</option>
+                      <option value="Linux">Linux</option>
+                    </Form.Control>
                   </Form.Group>
                 </Col>
               </Row>
               <Row>
                 <Col >
-                <FloatingLabel controlId="floatingTextarea2" label="Comments">
-                    <Form.Control
-                    name="Comentarios" 
-                    as="textarea"
-                    placeholder="Comentarios"
+                  <Form.Group className="mb-3" controlId="formEmail">
+                    <Form.Label>Comentarios</Form.Label>
+                    <Form.Control 
+                    name="Comentarios"
+                    size="lg"
                     onChange={this.handleChange}
-                    style={{ height: '80px' }}
+                    placeholder="Comentarios" 
                     />
-                </FloatingLabel>
+                  </Form.Group>
                 </Col>
                 <Col>
                   <Form.Group as={Col} controlId="formFecha">
@@ -215,12 +220,12 @@ class AgregarTrabajador extends Component {
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Nombre Dotacion</th>
-                      <th>Codigo dotacion</th>
-                      <th>Sistema operativo</th>
-                      <th>Tipo</th>
+                      <th>No. de documento</th>
+                      <th>Email</th>
+                      <th>Marca favorita de PC</th>
+                      <th>Comentarios</th>
                       <th>Fecha</th>
-                      <th>Editar - Eliminar</th>
+                      <th>Eliminar</th>
                     </tr>
                   </thead>
                   <tbody>
