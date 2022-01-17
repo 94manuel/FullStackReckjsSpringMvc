@@ -174,9 +174,15 @@ class AgregarTrabajador extends Component {
                     name="PcFavorita"
                     defaultValue="Escoger..."
                     onChange={this.handleChange}>
-                      <option value="Escoger">Escoger</option>
-                      <option value="Windows">Windows</option>
-                      <option value="Linux">Linux</option>
+                      <option value="Asus">Asus</option>
+                      <option value="Lenovo">Lenovo</option>
+                      <option value="Apple">Apple</option>
+                      <option value="Dell">Dell</option>
+                      <option value="Acer">Acer</option>
+                      <option value="Alienware">Alienware</option>
+                      <option value="Razer">Razer</option>
+                      <option value="MSI">MSI</option>
+                      <option value="Samsung">Samsung</option>
                     </Form.Control>
                   </Form.Group>
                 </Col>

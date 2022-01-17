@@ -86,7 +86,7 @@ function Login(props) {
               </div>
               <Fade in={error}>
                 <Typography color="secondary" className={classes.errorMessage}>
-                  Algo está mal con su nombre de usuario o contraseña,  {intentos <=0 ? "Bloqueado los intentos":" Tienes "+ intentos  +"intentos más"} 
+                  Algo está mal con su nombre de usuario o contraseña,  {intentos <=0 ? "Bloqueado los intentos":" Tienes "+ intentos  +" intentos más"} 
                 </Typography>
               </Fade>
               <TextField
