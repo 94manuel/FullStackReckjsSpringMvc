@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 class AgregarTrabajador extends Component {
   constructor(props){
     super(props);
+    this.myRef = React.createRef();
   }
   state = {
     id:0,
@@ -52,7 +53,7 @@ class AgregarTrabajador extends Component {
         documento: this.state.documento,
         email: this.state.email,
         comentarios : this.state.Comentarios,
-        pc_favorita: this.state.PcFavorita,
+        pcFavorita: this.myRef.current.value.toString(),
         fecha: this.state.fecha
       })
   };
@@ -117,6 +118,11 @@ class AgregarTrabajador extends Component {
     const { cambiar } = this.props;
     cambiar(0);
   }
+  onChangePc = (event) => {
+    console.log(this.myRef.current.value);
+    this.setState({PcFavorita: this.myRef.current.value});
+    console.log(this.state.PcFavorita);
+}
   Consultar = (event) => {
     const requestOptions = {
       method: 'GET',
@@ -176,7 +182,8 @@ class AgregarTrabajador extends Component {
                     as="select"
                     name="PcFavorita"
                     defaultValue="Escoger..."
-                    onChange={this.handleChange}>
+                    ref={this.myRef}
+                    onChange={this.onChangePc}>
                       <option value="Asus">Asus</option>
                       <option value="Lenovo">Lenovo</option>
                       <option value="Apple">Apple</option>
